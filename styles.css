@@ -12,6 +12,12 @@
   font-family: Arial, sans-serif;
 }
 
+#splash-image {
+  max-width: 80%; /* Ajuste la taille de l'image pour qu'elle s'adapte à l'écran */
+  height: auto;
+  margin-bottom: 20px;
+}
+
 /* Global styles */
 body {
   margin: 0;
@@ -112,3 +118,4 @@ body {
     font-size: 12px;
   }
 }
+
