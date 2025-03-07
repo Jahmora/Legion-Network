@@ -48,7 +48,8 @@ body {
   border-radius: 5px;
   font-size: 14px;
   overflow-y: auto;
-  max-height: 50vh; /* Ajustement dynamique */
+  max-height: 50vh; /* Ajuste la hauteur pour éviter le dépassement */
+  height: calc(100vh - 200px); /* Ajuste selon l'espace visible */
 }
 
 #output {
@@ -75,6 +76,8 @@ body {
   font-size: 16px;
   padding: 5px;
   border-bottom: 2px solid white;
+  position: relative;
+  z-index: 10;
 }
 
 /* Responsiveness for mobile */
@@ -100,3 +103,12 @@ body {
     padding: 5px;
   }
 
+  #terminal {
+    font-size: 11px;
+    height: 35vh;
+  }
+
+  #command-input {
+    font-size: 12px;
+  }
+}
