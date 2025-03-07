@@ -1,47 +1,17 @@
-/* Splash screen */
-#splash-screen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 10px;
-  text-align: center;
-  background-color: #1e1e1e;
-  color: white;
-  font-family: Arial, sans-serif;
-  animation: fadeInBackground 1.5s ease-in-out; /* Animation du splash screen */
+/* Corps de la page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e; /* Fond noir */
+  color: white; /* Texte blanc */
+  line-height: 1.5;
 }
 
-#splash-image {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-  object-fit: contain;
-  animation: fadeIn 1.5s ease-in-out; /* Animation de l'image */
-}
-
-#app {
-  display: none;
-}
-
-/* Panneau de statut */
-#status-panel {
-  background: #333;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 16px;
-}
-
-#status-info {
-  font-size: 14px;
-}
-
-/* Terminal */
+/* Terminal : Contraste et lisibilité */
 #terminal {
-  background: #1c1c1c;
+  background: #1c1c1c; /* Fond légèrement plus clair que le fond principal */
+  color: white; /* Texte blanc */
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -50,11 +20,7 @@
   height: calc(100vh - 200px);
 }
 
-#output {
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-}
-
+/* Ligne d'entrée */
 #input-line {
   display: flex;
   align-items: center;
@@ -62,6 +28,7 @@
 }
 
 .prompt {
+  color: white; /* Contraste avec le fond */
   margin-right: 5px;
 }
 
@@ -69,67 +36,45 @@
   background: transparent;
   border: none;
   outline: none;
-  color: white;
+  color: white; /* Texte blanc */
   flex-grow: 1;
   font-size: 16px;
   padding: 5px;
   border-bottom: 2px solid white;
 }
 
-/* Effet de machine à écrire */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* Panneau de statut */
+#status-panel {
+  background: #333; /* Fond sombre */
+  color: white; /* Texte blanc */
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
 }
 
-@keyframes fadeInBackground {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+/* Splash screen */
+#splash-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1e1e1e; /* Fond noir */
+  color: white; /* Texte blanc */
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
 
-/* Responsiveness pour les mobiles */
-@media (max-width: 768px) {
-  #status-panel {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  #terminal {
-    font-size: 12px;
-    height: 40vh;
-  }
-
-  #command-input {
-    font-size: 14px;
-  }
-
-  #splash-image {
-    max-width: 90%;
-  }
+#splash-image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  object-fit: contain;
 }
 
-@media (max-width: 480px) {
-  #splash-image {
-    max-width: 85%; /* Pour les très petits écrans */
-  }
-
-  #status-panel {
-    font-size: 12px;
-  }
-
-  #terminal {
-    font-size: 11px;
-    height: 35vh;
-  }
+#status-info {
+  font-size: 14px;
+  color: white; /* Lisibilité garantie */
 }
-
