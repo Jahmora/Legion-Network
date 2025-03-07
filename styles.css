@@ -13,10 +13,29 @@
 }
 
 #splash-image {
-  max-width: 80%; /* Ajuste la taille de l'image pour qu'elle s'adapte à l'écran */
-  height: auto;
+  max-width: 100%; /* L'image s'ajuste à la largeur de l'écran */
+  height: auto; /* Conserve les proportions de l'image */
   margin-bottom: 20px;
+  object-fit: contain; /* S'assure que l'image est bien affichée */
 }
+
+/* Responsive design for smaller devices */
+@media (max-width: 768px) {
+  #splash-screen {
+    padding: 5px;
+  }
+
+  #splash-image {
+    max-width: 90%; /* Ajuste la taille pour les tablettes et petits écrans */
+  }
+}
+
+@media (max-width: 480px) {
+  #splash-image {
+    max-width: 85%; /* Réduit encore plus pour les très petits écrans */
+  }
+}
+
 
 /* Global styles */
 body {
