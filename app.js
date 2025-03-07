@@ -7,7 +7,19 @@ let blockchainStatus = {
   totalLegion: 10000,
 };
 
-let currentLanguage = "fr"; // Langue par défaut (Français)
+// Détection automatique de la langue de l'utilisateur
+let currentLanguage = detectUserLanguage();
+
+// Fonction pour détecter la langue de l'utilisateur
+function detectUserLanguage() {
+  const userLang = navigator.language || navigator.userLanguage; // Langue du navigateur
+  if (userLang.startsWith("fr")) {
+    return "fr";
+  } else if (userLang.startsWith("en")) {
+    return "en";
+  }
+  return "en"; // Par défaut : Anglais
+}
 
 // Sauvegarde et récupération des données via localStorage
 function saveBlockchainData() {
@@ -25,9 +37,9 @@ function loadBlockchainData() {
 function updateStatusPanel() {
   const statusInfo = document.getElementById("status-info");
   statusInfo.innerHTML = `
-    <p>Noeuds connectés : ${blockchainStatus.nodes}</p>
-    <p>Blocs créés : ${blockchainStatus.blocks}</p>
-    <p>Total de Legion ($Legion) : ${blockchainStatus.totalLegion}</p>
+    <p>${t("nodesConnected")} ${blockchainStatus.nodes}</p>
+    <p>${t("blocksCreated")} ${blockchainStatus.blocks}</p>
+    <p>${t("totalLegion")} ${blockchainStatus.totalLegion}</p>
   `;
 }
 
@@ -55,23 +67,32 @@ function processCommand(command) {
   const output = document.getElementById("output");
   command = command.trim().toLowerCase();
 
-  if (command === "help") {
-    output.innerHTML += "\nCommandes disponibles :\n";
-    output.innerHTML += "  - help : Voir la liste des commandes\n";
-    output.innerHTML += "  - status : Affiche l'état actuel du réseau\n";
-    output.innerHTML += "  - mine : Simule le minage d'un bloc\n";
-  } else if (command === "status") {
-    output.innerHTML += `\nNoeuds connectés : ${blockchainStatus.nodes}\n`;
-    output.innerHTML += `Blocs créés : ${blockchainStatus.blocks}\n`;
-    output.innerHTML += `Total de $Legion : ${blockchainStatus.totalLegion}\n`;
-  } else if (command === "mine") {
+  const commands = translations[currentLanguage].commands;
+
+  if (command === commands.help) {
+    output.innerHTML += `\n${t("availableCommands")}\n`;
+  } else if (command === commands.status) {
+    output.innerHTML += `\n${t("statusMessage")}\n`;
+    output.innerHTML += `${t("nodesConnected")} ${blockchainStatus.nodes}\n`;
+    output.innerHTML += `${t("blocksCreated")} ${blockchainStatus.blocks}\n`;
+    output.innerHTML += `${t("totalLegion")} ${blockchainStatus.totalLegion}\n`;
+  } else if (command === commands.mine) {
     blockchainStatus.blocks += 1;
     blockchainStatus.totalLegion += 500;
     saveBlockchainData();
-    output.innerHTML += "\nBloc miné avec succès ! +500 $Legion ajoutés.\n";
+    output.innerHTML += `\n${t("blockMinedSuccess")}\n`;
     updateStatusPanel();
+  } else if (command.startsWith("lang")) {
+    const langCode = command.split(" ")[1];
+    const message = changeLanguage(langCode);
+    if (message) {
+      output.innerHTML += `\n${message}\n`;
+      updateStatusPanel();
+    } else {
+      output.innerHTML += `\n${t("languageNotRecognized")}\n`;
+    }
   } else {
-    output.innerHTML += `\nCommande inconnue : "${command}"\n`;
+    output.innerHTML += `\n${t("commandNotRecognized")}\n`;
   }
 
   output.scrollTop = output.scrollHeight;
@@ -80,38 +101,4 @@ function processCommand(command) {
 // Initialisation de l'application
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("command-input");
-  const splashScreen = document.getElementById("splash-screen");
-  const appContainer = document.getElementById("app");
-
-  // Écran de démarrage
-  setTimeout(() => {
-    splashScreen.style.display = "none";
-    appContainer.style.display = "block";
-
-    loadBlockchainData();
-    updateStatusPanel();
-
-    typeWriterEffect("Bienvenue sur le réseau Legion ! Tapez 'help' pour commencer.\n");
-  }, 3000);
-
-  // Gestion des entrées utilisateur
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const command = input.value;
-      document.getElementById("output").innerHTML += `$ ${command}\n`;
-      processCommand(command);
-      input.value = "";
-    }
-  });
-
-  // Forcer le focus sur mobile lorsque le terminal est cliqué
-  document.getElementById("terminal").addEventListener("click", () => {
-    input.focus();
-  });
-
-  // Gérer les comportements tactiles sur mobile
-  input.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    input.focus();
-  });
-});
+  const splashScreen = document.getElementById("splash-screen
