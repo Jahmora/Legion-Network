@@ -1,70 +1,29 @@
-/* Corps de la page */
+/*--- Global Styles ---*/
 body {
   margin: 0;
   padding: 0;
   font-family: 'Courier New', Courier, monospace;
-  background-color: #1e1e1e; /* Fond noir */
-  color: white; /* Texte blanc */
+  background: linear-gradient(135deg, #010101, #222222);
+  color: white;
   line-height: 1.5;
+  overflow: hidden;
 }
 
-/* Terminal : Contraste et lisibilité */
-#terminal {
-  background: #1c1c1c; /* Fond légèrement plus clair que le fond principal */
-  color: white; /* Texte blanc */
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  overflow-y: auto;
-  max-height: 50vh;
-  height: calc(100vh - 200px);
-}
-
-/* Ligne d'entrée */
-#input-line {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.prompt {
-  color: white; /* Contraste avec le fond */
-  margin-right: 5px;
-}
-
-#command-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: white; /* Texte blanc */
-  flex-grow: 1;
-  font-size: 16px;
-  padding: 5px;
-  border-bottom: 2px solid white;
-}
-
-/* Panneau de statut */
-#status-panel {
-  background: #333; /* Fond sombre */
-  color: white; /* Texte blanc */
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 16px;
-}
-
-/* Splash screen */
+/*--- Splash Screen ---*/
 #splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #000, #333);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #1e1e1e; /* Fond noir */
-  color: white; /* Texte blanc */
-  font-family: Arial, sans-serif;
-  text-align: center;
+  z-index: 1000;
+  animation: splashFadeOut 1s ease-in-out forwards;
+  animation-delay: 4s;
 }
 
 #splash-image {
@@ -72,9 +31,177 @@ body {
   height: auto;
   margin-bottom: 20px;
   object-fit: contain;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes splashFadeOut {
+  to { opacity: 0; }
+}
+
+/*--- Conteneur principal de l'application ---*/
+#app {
+  display: none; /* Il sera rendu visible après le splash */
+  flex-direction: column;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.95);
+}
+
+/*--- Panneau de statut ---*/
+#status-panel {
+  display: none; /* Masqué jusqu'au consentement */
+  background-color: #333;
+  padding: 10px 15px;
+  margin: 10px auto;
+  max-width: 800px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
 #status-info {
   font-size: 14px;
-  color: white; /* Lisibilité garantie */
+  color: white;
 }
+
+/*--- Panneau de contrôle ---*/
+.control-panel {
+  display: none; /* Masqué jusqu'au consentement */
+  background-color: #333;
+  padding: 10px 15px;
+  margin: 10px auto;
+  max-width: 800px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+/*--- Terminal ---*/
+#terminal {
+  flex: 1;
+  background-color: #1c1c1c;
+  padding: 10px;
+  margin: 10px auto;
+  max-width: 800px;
+  border-radius: 5px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+/*--- Idle Screen ---*/
+#idle-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: opacity 1s ease;
+}
+
+#idle-message {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.animation {
+  width: 80px;
+  height: 80px;
+  border: 4px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/*--- Terminal Input ---*/
+#input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.prompt {
+  margin-right: 5px;
+  color: white;
+}
+
+#command-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex-grow: 1;
+  font-size: 16px;
+  padding: 5px;
+  border-bottom: 2px solid white;
+  position: relative;
+  z-index: 10;
+}
+
+/*--- Lignes du terminal ---*/
+.line {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  margin-bottom: 4px;
+}
+
+/*--- Responsive Design ---*/
+@media (max-width: 768px) {
+  #status-panel, .control-panel {
+    font-size: 14px;
+    margin: 5px;
+  }
+  #terminal {
+    font-size: 12px;
+    height: 40vh;
+  }
+  #command-input {
+    font-size: 14px;
+  }
+  #splash-image {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  #status-panel, .control-panel {
+    font-size: 12px;
+    padding: 5px;
+  }
+  #terminal {
+    font-size: 11px;
+    height: 35vh;
+  }
+  #command-input {
+    font-size: 12px;
+  }
+  #splash-image {
+    max-width: 85%;
+  }
+}
+
