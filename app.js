@@ -7,11 +7,11 @@ let blockchainStatus = {
   totalLegion: 10000,
 };
 
-let currentLanguage = "en"; // Valeur par défaut : Anglais
+let currentLanguage = "en"; // Langue par défaut : Anglais
 
-// Détecte automatiquement la langue du navigateur de l'utilisateur
+// Détection automatique de la langue de l'utilisateur
 function detectLanguage() {
-  const userLang = navigator.language || navigator.userLanguage; // Ex : "fr", "en-US"
+  const userLang = navigator.language || navigator.userLanguage; // Exemple : "fr", "en-US"
   if (userLang.startsWith("fr")) {
     currentLanguage = "fr";
   } else {
@@ -19,50 +19,12 @@ function detectLanguage() {
   }
 }
 
-// Traductions disponibles
-const translations = {
-  en: {
-    commands: {
-      help: "help",
-      status: "status",
-      mine: "mine",
-    },
-    welcome: "Welcome to Legion Network! Type 'help' to get started.",
-    commandNotRecognized: "Command not recognized. Type 'help' for a list of commands.",
-    statusMessage: "Current network status:",
-    nodesConnected: "Nodes connected:",
-    blocksCreated: "Blocks created:",
-    totalLegion: "Total $Legion supply:",
-    availableCommands: "Available commands: help, status, mine",
-    blockMinedSuccess: "Block mined successfully! +500 $Legion added.",
-    languageChanged: "Language changed to English.",
-    languageNotRecognized: "Language not recognized. Use 'lang en' or 'lang fr'.",
-  },
-  fr: {
-    commands: {
-      help: "aide",
-      status: "statut",
-      mine: "miner",
-    },
-    welcome: "Bienvenue dans le réseau Legion ! Tapez 'aide' pour commencer.",
-    commandNotRecognized: "Commande non reconnue. Tapez 'aide' pour voir la liste des commandes.",
-    statusMessage: "Statut actuel du réseau :",
-    nodesConnected: "Noeuds connectés :",
-    blocksCreated: "Blocs créés :",
-    totalLegion: "Total $Legion disponible :",
-    availableCommands: "Commandes disponibles : aide, statut, miner",
-    blockMinedSuccess: "Bloc miné avec succès ! +500 $Legion ajoutés.",
-    languageChanged: "Langue changée en Français.",
-    languageNotRecognized: "Langue non reconnue. Utilisez 'lang fr' ou 'lang en'.",
-  },
-};
-
-// Fonction pour récupérer les traductions
+// Fonction pour récupérer une traduction selon la clé et la langue
 function t(key) {
   return translations[currentLanguage][key] || `MISSING_TRANSLATION: ${key}`;
 }
 
-// Change dynamiquement la langue (si commandée par l'utilisateur)
+// Change dynamiquement la langue à la demande
 function changeLanguage(langCode) {
   if (translations[langCode]) {
     currentLanguage = langCode;
@@ -71,7 +33,7 @@ function changeLanguage(langCode) {
   return t("languageNotRecognized");
 }
 
-// Sauvegarde et récupération de l'état via localStorage
+// Sauvegarde et récupération des données blockchain via localStorage
 function saveBlockchainData() {
   localStorage.setItem("blockchainStatus", JSON.stringify(blockchainStatus));
 }
@@ -83,7 +45,7 @@ function loadBlockchainData() {
   }
 }
 
-// Met à jour le panneau de statut
+// Met à jour le panneau de statut du réseau
 function updateStatusPanel() {
   const statusInfo = document.getElementById("status-info");
   statusInfo.innerHTML = `
@@ -93,7 +55,7 @@ function updateStatusPanel() {
   `;
 }
 
-// Effet de machine à écrire
+// Effet de machine à écrire pour les sorties dans le terminal
 function typeWriterEffect(text, callback) {
   const output = document.getElementById("output");
   let i = 0;
@@ -112,7 +74,7 @@ function typeWriterEffect(text, callback) {
   typeChar();
 }
 
-// Gère les commandes du terminal
+// Gestion des commandes utilisateur dans le terminal
 function processCommand(command) {
   const output = document.getElementById("output");
   command = command.trim().toLowerCase();
@@ -150,10 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const splashScreen = document.getElementById("splash-screen");
   const appContainer = document.getElementById("app");
 
-  // Détecte automatiquement la langue
+  // Détection de la langue au lancement
   detectLanguage();
 
-  // Écran de démarrage
+  // Écran de démarrage et lancement de l'application
   setTimeout(() => {
     splashScreen.style.display = "none";
     appContainer.style.display = "block";
@@ -164,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     typeWriterEffect(t("welcome"));
   }, 3000);
 
-  // Gestion des entrées utilisateur
+  // Gestion des commandes via le champ d'entrée
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const command = input.value;
@@ -174,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Comportement mobile : Forcer le focus
+  // Assure la compatibilité tactile sur mobile
   document.getElementById("terminal").addEventListener("click", () => {
     input.focus();
   });
@@ -184,3 +146,4 @@ document.addEventListener("DOMContentLoaded", () => {
     input.focus();
   });
 });
+
