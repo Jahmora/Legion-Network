@@ -10,49 +10,22 @@
   background-color: #1e1e1e;
   color: white;
   font-family: Arial, sans-serif;
+  animation: fadeInBackground 1.5s ease-in-out; /* Animation du splash screen */
 }
 
 #splash-image {
-  max-width: 100%; /* L'image s'ajuste à la largeur de l'écran */
-  height: auto; /* Conserve les proportions de l'image */
+  max-width: 100%;
+  height: auto;
   margin-bottom: 20px;
-  object-fit: contain; /* S'assure que l'image est bien affichée */
-}
-
-/* Responsive design for smaller devices */
-@media (max-width: 768px) {
-  #splash-screen {
-    padding: 5px;
-  }
-
-  #splash-image {
-    max-width: 90%; /* Ajuste la taille pour les tablettes et petits écrans */
-  }
-}
-
-@media (max-width: 480px) {
-  #splash-image {
-    max-width: 85%; /* Réduit encore plus pour les très petits écrans */
-  }
-}
-
-
-/* Global styles */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Courier New', Courier, monospace;
-  background-color: #1e1e1e;
-  color: white;
-  line-height: 1.5;
+  object-fit: contain;
+  animation: fadeIn 1.5s ease-in-out; /* Animation de l'image */
 }
 
 #app {
   display: none;
-  padding: 10px;
 }
 
-/* Status panel */
+/* Panneau de statut */
 #status-panel {
   background: #333;
   padding: 10px;
@@ -73,8 +46,8 @@ body {
   border-radius: 5px;
   font-size: 14px;
   overflow-y: auto;
-  max-height: 50vh; /* Ajuste la hauteur pour éviter le dépassement */
-  height: calc(100vh - 200px); /* Ajuste selon l'espace visible */
+  max-height: 50vh;
+  height: calc(100vh - 200px);
 }
 
 #output {
@@ -101,11 +74,30 @@ body {
   font-size: 16px;
   padding: 5px;
   border-bottom: 2px solid white;
-  position: relative;
-  z-index: 10;
 }
 
-/* Responsiveness for mobile */
+/* Effet de machine à écrire */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsiveness pour les mobiles */
 @media (max-width: 768px) {
   #status-panel {
     font-size: 14px;
@@ -120,21 +112,24 @@ body {
   #command-input {
     font-size: 14px;
   }
+
+  #splash-image {
+    max-width: 90%;
+  }
 }
 
 @media (max-width: 480px) {
+  #splash-image {
+    max-width: 85%; /* Pour les très petits écrans */
+  }
+
   #status-panel {
     font-size: 12px;
-    padding: 5px;
   }
 
   #terminal {
     font-size: 11px;
     height: 35vh;
-  }
-
-  #command-input {
-    font-size: 12px;
   }
 }
 
