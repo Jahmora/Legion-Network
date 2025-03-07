@@ -1,65 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#1e1e1e">
-  <title>Legion Network</title>
-  <link rel="stylesheet" href="styles.css">
-  <!-- Préchargement de l'image LN.webp pour de meilleures performances -->
-  <link rel="preload" href="LN.webp" as="image">
-  <!-- Metadonnées pour Telegram -->
-  <meta property="og:title" content="Legion Network">
-  <meta property="og:description" content="Simulateur interactif basé sur blockchain.">
-  <meta property="og:url" content="https://votre-nom.github.io/Legion-Network/">
-  <meta property="og:image" content="https://votre-nom.github.io/Legion-Network/LN.webp">
-</head>
-<body>
-  <!-- Splash Screen -->
-  <div id="splash-screen">
-    <img src="LN.webp" alt="Logo de Legion Network" id="splash-image">
-    <p>Chargement...</p>
-  </div>
-
-  <!-- Conteneur principal de l'application -->
-  <div id="app">
-    <!-- Panneau de statut (initialement masqué) -->
-    <div id="status-panel">
-      <h2>Statut</h2>
-      <div id="status-info"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e1e1e" />
+    <title>Legion Network</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+      <img src="LN.webp" alt="Logo de Legion Network" id="splash-image" />
+      <p id="loading-text">Chargement...</p>
     </div>
 
-    <!-- Panneau de contrôle (initialement masqué) -->
-    <div class="control-panel">
-      <label>
-        <input type="checkbox" id="miningToggle" checked> Activer le minage
-      </label><br>
-      <label>
-        Charge de minage :
-        <input type="range" id="miningLoad" min="10000" max="200000" step="10000" value="100000">
-        <span id="loadValue">100000</span>
-      </label>
-    </div>
-
-    <!-- Terminal (toujours visible pour permettre le consentement et les commandes) -->
-    <div id="terminal">
-      <div id="output"></div>
-      <div id="input-line">
-        <span class="prompt">$</span>
-        <input type="text" id="command-input" autocomplete="off">
+    <!-- Terminal -->
+    <div id="app" style="display:none;">
+      <div id="terminal">
+        <div id="output"></div>
+        <div id="input-line">
+          <span class="prompt">$</span>
+          <input type="text" id="command-input" autocomplete="off" />
+        </div>
       </div>
     </div>
 
-    <!-- Écran de veille (Idle Screen) -->
-    <div id="idle-screen" style="display: none;">
-      <h1 id="idle-message">En mode veille...</h1>
-      <div class="animation"></div>
-    </div>
-  </div>
-
-  <!-- Inclusion des scripts : translations.js d'abord, puis app.js -->
-  <script src="translations.js"></script>
-  <script src="app.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="translations.js"></script>
+    <script type="module" src="terminal.js"></script>
+    <script type="module" src="app.js"></script>
+  </body>
 </html>
 
