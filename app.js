@@ -7,21 +7,71 @@ let blockchainStatus = {
   totalLegion: 10000,
 };
 
-// Détection automatique de la langue de l'utilisateur
-let currentLanguage = detectUserLanguage();
+let currentLanguage = "en"; // Valeur par défaut : Anglais
 
-// Fonction pour détecter la langue de l'utilisateur
-function detectUserLanguage() {
-  const userLang = navigator.language || navigator.userLanguage; // Langue du navigateur
+// Détecte automatiquement la langue du navigateur de l'utilisateur
+function detectLanguage() {
+  const userLang = navigator.language || navigator.userLanguage; // Ex : "fr", "en-US"
   if (userLang.startsWith("fr")) {
-    return "fr";
-  } else if (userLang.startsWith("en")) {
-    return "en";
+    currentLanguage = "fr";
+  } else {
+    currentLanguage = "en";
   }
-  return "en"; // Par défaut : Anglais
 }
 
-// Sauvegarde et récupération des données via localStorage
+// Traductions disponibles
+const translations = {
+  en: {
+    commands: {
+      help: "help",
+      status: "status",
+      mine: "mine",
+    },
+    welcome: "Welcome to Legion Network! Type 'help' to get started.",
+    commandNotRecognized: "Command not recognized. Type 'help' for a list of commands.",
+    statusMessage: "Current network status:",
+    nodesConnected: "Nodes connected:",
+    blocksCreated: "Blocks created:",
+    totalLegion: "Total $Legion supply:",
+    availableCommands: "Available commands: help, status, mine",
+    blockMinedSuccess: "Block mined successfully! +500 $Legion added.",
+    languageChanged: "Language changed to English.",
+    languageNotRecognized: "Language not recognized. Use 'lang en' or 'lang fr'.",
+  },
+  fr: {
+    commands: {
+      help: "aide",
+      status: "statut",
+      mine: "miner",
+    },
+    welcome: "Bienvenue dans le réseau Legion ! Tapez 'aide' pour commencer.",
+    commandNotRecognized: "Commande non reconnue. Tapez 'aide' pour voir la liste des commandes.",
+    statusMessage: "Statut actuel du réseau :",
+    nodesConnected: "Noeuds connectés :",
+    blocksCreated: "Blocs créés :",
+    totalLegion: "Total $Legion disponible :",
+    availableCommands: "Commandes disponibles : aide, statut, miner",
+    blockMinedSuccess: "Bloc miné avec succès ! +500 $Legion ajoutés.",
+    languageChanged: "Langue changée en Français.",
+    languageNotRecognized: "Langue non reconnue. Utilisez 'lang fr' ou 'lang en'.",
+  },
+};
+
+// Fonction pour récupérer les traductions
+function t(key) {
+  return translations[currentLanguage][key] || `MISSING_TRANSLATION: ${key}`;
+}
+
+// Change dynamiquement la langue (si commandée par l'utilisateur)
+function changeLanguage(langCode) {
+  if (translations[langCode]) {
+    currentLanguage = langCode;
+    return t("languageChanged");
+  }
+  return t("languageNotRecognized");
+}
+
+// Sauvegarde et récupération de l'état via localStorage
 function saveBlockchainData() {
   localStorage.setItem("blockchainStatus", JSON.stringify(blockchainStatus));
 }
@@ -33,7 +83,7 @@ function loadBlockchainData() {
   }
 }
 
-// Mise à jour du panneau de statut
+// Met à jour le panneau de statut
 function updateStatusPanel() {
   const statusInfo = document.getElementById("status-info");
   statusInfo.innerHTML = `
@@ -43,7 +93,7 @@ function updateStatusPanel() {
   `;
 }
 
-// Effet de machine à écrire pour le terminal
+// Effet de machine à écrire
 function typeWriterEffect(text, callback) {
   const output = document.getElementById("output");
   let i = 0;
@@ -62,7 +112,7 @@ function typeWriterEffect(text, callback) {
   typeChar();
 }
 
-// Gestion des commandes du terminal
+// Gère les commandes du terminal
 function processCommand(command) {
   const output = document.getElementById("output");
   command = command.trim().toLowerCase();
@@ -85,12 +135,8 @@ function processCommand(command) {
   } else if (command.startsWith("lang")) {
     const langCode = command.split(" ")[1];
     const message = changeLanguage(langCode);
-    if (message) {
-      output.innerHTML += `\n${message}\n`;
-      updateStatusPanel();
-    } else {
-      output.innerHTML += `\n${t("languageNotRecognized")}\n`;
-    }
+    output.innerHTML += `\n${message}\n`;
+    updateStatusPanel();
   } else {
     output.innerHTML += `\n${t("commandNotRecognized")}\n`;
   }
@@ -101,4 +147,40 @@ function processCommand(command) {
 // Initialisation de l'application
 document.addEventListener("DOMContentLoaded", () => {
   const input = document.getElementById("command-input");
-  const splashScreen = document.getElementById("splash-screen
+  const splashScreen = document.getElementById("splash-screen");
+  const appContainer = document.getElementById("app");
+
+  // Détecte automatiquement la langue
+  detectLanguage();
+
+  // Écran de démarrage
+  setTimeout(() => {
+    splashScreen.style.display = "none";
+    appContainer.style.display = "block";
+
+    loadBlockchainData();
+    updateStatusPanel();
+
+    typeWriterEffect(t("welcome"));
+  }, 3000);
+
+  // Gestion des entrées utilisateur
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      const command = input.value;
+      document.getElementById("output").innerHTML += `$ ${command}\n`;
+      processCommand(command);
+      input.value = "";
+    }
+  });
+
+  // Comportement mobile : Forcer le focus
+  document.getElementById("terminal").addEventListener("click", () => {
+    input.focus();
+  });
+
+  input.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    input.focus();
+  });
+});
