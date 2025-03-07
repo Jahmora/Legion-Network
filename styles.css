@@ -1,0 +1,102 @@
+/* Splash screen */
+#splash-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 10px;
+  text-align: center;
+  background-color: #1e1e1e;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e;
+  color: white;
+  line-height: 1.5;
+}
+
+#app {
+  display: none;
+  padding: 10px;
+}
+
+/* Status panel */
+#status-panel {
+  background: #333;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+}
+
+#status-info {
+  font-size: 14px;
+}
+
+/* Terminal */
+#terminal {
+  background: #1c1c1c;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  overflow-y: auto;
+  max-height: 50vh; /* Ajustement dynamique */
+}
+
+#output {
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+}
+
+#input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.prompt {
+  margin-right: 5px;
+}
+
+#command-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex-grow: 1;
+  font-size: 16px;
+  padding: 5px;
+  border-bottom: 2px solid white;
+}
+
+/* Responsiveness for mobile */
+@media (max-width: 768px) {
+  #status-panel {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  #terminal {
+    font-size: 12px;
+    height: 40vh;
+  }
+
+  #command-input {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  #status-panel {
+    font-size: 12px;
+    padding: 5px;
+  }
+

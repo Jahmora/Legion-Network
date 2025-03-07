@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e1e1e">
+  <title>Legion Network</title>
+  <link rel="stylesheet" href="styles.css">
+  <meta property="og:title" content="Legion Network">
+  <meta property="og:description" content="Simulateur interactif basé sur blockchain.">
+  <meta property="og:url" content="https://votre-nom.github.io/Legion-Network/">
+  <meta property="og:image" content="https://votre-nom.github.io/Legion-Network/assets/preview.png">
+</head>
+<body>
+  <div id="splash-screen">
+    <h1>Bienvenue sur Legion Network</h1>
+    <p>Chargement...</p>
+  </div>
+
+  <div id="app">
+    <div id="status-panel">
+      <h2>Statut</h2>
+      <div id="status-info"></div>
+    </div>
+
+    <div id="terminal">
+      <div id="output"></div>
+      <div id="input-line">
+        <span class="prompt">$</span>
+        <input type="text" id="command-input" autocomplete="off">
+      </div>
+    </div>
+  </div>
+
+  <script src="translations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
