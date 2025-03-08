@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1e1e1e" />
-    <title>Legion Network</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-      <img src="LN.webp" alt="Logo de Legion Network" id="splash-image" />
-      <p id="loading-text">Chargement...</p>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminal Legion</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <img src="LN.webp" alt="Logo Legion Network" />
+    <p>Chargement...</p>
+  </div>
 
-    <!-- Terminal -->
-    <div id="app" style="display:none;">
-      <div id="terminal">
-        <div id="output"></div>
-        <div id="input-line">
-          <span class="prompt">$</span>
-          <input type="text" id="command-input" autocomplete="off" />
-        </div>
+  <!-- Application Terminal -->
+  <div id="app" style="display:none;">
+    <div id="terminal">
+      <div id="output"></div> <!-- Zone pour afficher le texte -->
+      <div id="input-line">
+        <span class="prompt">$</span>
+        <input type="text" id="command-input" autocomplete="off" /> <!-- Entrée utilisateur -->
       </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="translations.js"></script>
-    <script type="module" src="terminal.js"></script>
-    <script type="module" src="app.js"></script>
-  </body>
+  <!-- Scripts -->
+  <script type="module" src="terminal.js"></script> <!-- Import terminal.js -->
+  <script type="module" src="app.js"></script> <!-- Import app.js -->
+</body>
 </html>
 
