@@ -1,10 +1,9 @@
+// terminal.js
 "use strict";
 
-// Effet de machine à écrire
 export function typeWriterEffect(text, callback) {
   const output = document.getElementById("output");
   let i = 0;
-
   function typeChar() {
     if (i < text.length) {
       output.innerHTML += text.charAt(i);
@@ -15,22 +14,23 @@ export function typeWriterEffect(text, callback) {
       callback();
     }
   }
-
   typeChar();
 }
 
-// Afficher une ligne dans le terminal
 export function printLine(text) {
   const output = document.getElementById("output");
   output.innerHTML += `\n${text}`;
   output.scrollTop = output.scrollHeight;
 }
 
-// Gérer l'entrée utilisateur
+// Cette version réinitialise le contenu de #input-line afin d'éliminer les anciens listeners.
 export function createInputLine() {
+  const inputLineContainer = document.getElementById("input-line");
+  inputLineContainer.innerHTML = `<span class="prompt">$</span>
+    <input type="text" id="command-input" autocomplete="off">`;
   const input = document.getElementById("command-input");
   if (!input) {
-    console.error("Élément #command-input introuvable !");
+    console.error("Erreur : Élément #command-input introuvable !");
     return null;
   }
   input.focus();
