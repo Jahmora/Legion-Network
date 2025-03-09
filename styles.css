@@ -52,13 +52,12 @@ body {
   color: #00ff00;
   border-radius: 8px;
   padding: 10px;
-  overflow-y: scroll; /* Ajoute une barre de défilement si nécessaire */
-  font-family: 'Courier New', Courier, monospace;
+  overflow-y: scroll;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #00ff00 #1e1e1e; /* Firefox */
+  font-family: 'Courier New', Courier, monospace;
 }
 
+/* Personnalisation de la scrollbar */
 #terminal::-webkit-scrollbar {
   width: 8px;
 }
@@ -68,6 +67,10 @@ body {
 #terminal::-webkit-scrollbar-thumb {
   background-color: #00ff00;
   border-radius: 4px;
+}
+#terminal {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff00 #1e1e1e;
 }
 
 #output {
@@ -91,6 +94,6 @@ body {
   color: #00ff00;
   font-size: 16px;
   outline: none;
-  margin: 0 5px; /* Ajout de marges gauche et droite */
+  margin: 0 5px;
 }
 
