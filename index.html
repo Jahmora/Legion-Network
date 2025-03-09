@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legion Network Terminal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <img src="LN.webp" alt="Logo Legion Network" id="splash-image">
+    <p id="loading-text">Chargement...</p>
+  </div>
+
+  <!-- Interface Terminal pour la configuration du nœud -->
+  <div id="app" style="display: none;">
+    <div id="terminal">
+      <div id="output"></div>
+      <div id="input-line">
+        <span class="prompt">$</span>
+        <input type="text" id="command-input" autocomplete="off">
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteneur pour le mode Jeu Graphique -->
+  <div id="gameContainer" style="display: none;"></div>
+
+  <!-- Scripts (ES Modules) -->
+  <script type="module" src="translations.js"></script>
+  <script type="module" src="terminal.js"></script>
+  <script type="module" src="game.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
